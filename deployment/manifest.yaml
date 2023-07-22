@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo-api
+  name: demo-api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: demo-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo-api
+    spec:
+      containers:
+      - image: democontainerregistry221222.azurecr.io/demo-api:v1
+        name: demo-api
+        imagePullPolicy: Always
+        resources: {}
+        ports:
+          - containerPort: 80 
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-api
+  labels:
+    run: demo-api
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: demo-api
+  type: LoadBalancer
