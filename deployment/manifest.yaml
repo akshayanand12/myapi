@@ -18,7 +18,7 @@ spec:
         app: demo-api
     spec:
       containers:
-      - image: democontainerregistry221222.azurecr.io/demo-api:v1
+      - image: democontainerregistry221222.azurecr.io/demo-api:v3
         name: demo-api
         imagePullPolicy: Always
         resources: {}
