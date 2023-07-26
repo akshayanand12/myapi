@@ -1,12 +1,23 @@
 const { response } = require("express");
+const City  = require("./models/city")
 const express = require("express");
 const app = express();
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize("postgres://read_write_user:password@localhost:5432/world");
+sequelize.authenticate().then(() => {
+  console.log('Connection has been established successfully.');
+}).catch((error) => {
+  console.error('Unable to connect to the database: ', error);
+});
 
 const port = process.env.PORT || 80;
 
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
+  const cities = await City.findAll();
+  
   res.send({
-    message: "Here's your response from the node.js 🐳 container",
+    message: cities
   });
 });
 
